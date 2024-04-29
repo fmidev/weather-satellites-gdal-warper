@@ -1,0 +1,16 @@
+channels:
+  - conda-forge
+dependencies:
+  - donfig
+  - gdal
+  - git
+  - netifaces
+  - pip
+  - pip:
+    - posttroll==1.10.0
+  - python=3.11
+  - pyyaml
+  - pyzmq
+  - requests
+  - urllib3
+  - zeromq
