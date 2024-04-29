@@ -31,7 +31,37 @@ RUN mkdir /opt/conda && \
 # Remove unnecessary packages
 RUN source /opt/conda/.bashrc && \
     micromamba activate && \
-    micromamba remove --force -y numpy postgresql libboost-headers xorg-kbproto xorg-libice xorg-libsm xorg-libx11 xorg-libxau xorg-libxdmcp xorg-libxext xorg-libxrender xorg-renderproto xorg-xextproto xorg-xproto tk sqlite libgrpc font-ttf-source-code-pro font-ttf-inconsolata font-ttf-dejavu-sans-mono cairo libprotobuf libopenblas libgfortran5 libgfortran-ng libblas krb5 libarchive libgcc-ng libsodium
+    micromamba remove --force -y \
+        cairo \
+        font-ttf-dejavu-sans-mono \
+        font-ttf-inconsolata \
+        font-ttf-source-code-pro \
+        krb5 \
+        libarchive \
+        libblas \
+        libboost-headers \
+        libgcc-ng \
+        libgfortran5 \
+        libgfortran-ng \
+        libgrpc \
+        libopenblas \
+        libprotobuf \
+        libsodium \
+        numpy \
+        postgresql \
+        sqlite \
+        tk \
+        xorg-kbproto \
+        xorg-libice \
+        xorg-libsm \
+        xorg-libx11 \
+        xorg-libxau \
+        xorg-libxdmcp \
+        xorg-libxext \
+        xorg-libxrender \
+        xorg-renderproto \
+        xorg-xextproto \
+        xorg-xproto
 
 FROM registry.access.redhat.com/ubi9/ubi-minimal
 
