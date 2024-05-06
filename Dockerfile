@@ -40,17 +40,14 @@ RUN source /opt/conda/.bashrc && \
         libarchive \
         libblas \
         libboost-headers \
-        libgcc-ng \
         libgfortran5 \
         libgfortran-ng \
         libgrpc \
         libopenblas \
         libprotobuf \
-        libsodium \
         numpy \
         postgresql \
         sqlite \
-        tk \
         xorg-kbproto \
         xorg-libice \
         xorg-libsm \
