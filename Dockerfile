@@ -62,6 +62,9 @@ RUN source /opt/conda/.bashrc && \
 
 FROM registry.access.redhat.com/ubi9/ubi-minimal
 
+RUN microdnf -y update && \
+    microdnf -y clean all
+
 COPY --from=builder /opt/conda /opt/conda
 COPY --from=builder /usr/bin/micromamba /usr/bin/
 COPY --from=builder /config /config
