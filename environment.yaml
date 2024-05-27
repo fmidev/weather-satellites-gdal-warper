@@ -11,6 +11,6 @@ dependencies:
   - python=3.11
   - pyyaml
   - pyzmq
-  - requests
+  - requests>=2.32.0
   - urllib3
   - zeromq
