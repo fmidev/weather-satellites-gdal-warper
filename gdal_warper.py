@@ -7,13 +7,14 @@
 
 """Listen to Posttroll messages and use gdalwarp to resample the images."""
 
-import sys
+import datetime as dt
 import logging
 import logging.config
 import os
+import signal
 import subprocess
+import sys
 import time
-import datetime as dt
 from multiprocessing import Pool
 
 import yaml
@@ -106,6 +107,15 @@ def _warper_loop(config, pub, pub_topic, pool):
     if "addr_listener" not in sub_config:
         sub_config["addr_listener"] = True
 
+    keep_looping = True
+
+    def _signal_handler(signum, frame):
+        nonlocal keep_looping
+        logger.info("Caught SIGTERM, stop receiving new messages.")
+        keep_looping = False
+
+    signal.signal(signal.SIGTERM, _signal_handler)
+
     latest_message_time = dt.datetime.utcnow()
     results = []
     queued_images = 0
@@ -118,10 +128,13 @@ def _warper_loop(config, pub, pub_topic, pool):
             if restart_timeout:
                 time_since_last_msg = dt.datetime.utcnow() - latest_message_time
                 time_since_last_msg = time_since_last_msg.total_seconds() / 60.
-            if time_since_last_msg > restart_timeout and queued_images == 0:
-                logger.debug("%.0f minutes since last message",
-                             time_since_last_msg)
-                return
+            if queued_images == 0:
+                if not keep_looping:
+                    return signal.SIGTERM
+                if time_since_last_msg > restart_timeout:
+                    logger.debug("%.0f minutes since last message",
+                                 time_since_last_msg)
+                    return
             if msg is None:
                 continue
             logger.debug("New message received: %s", str(msg))
@@ -182,7 +195,9 @@ def main():
         with Publish("gdal_warper", **pub_config) as pub:
             while True:
                 logger.debug("Starting warper loop.")
-                _warper_loop(config, pub, pub_topic, pool)
+                ret = _warper_loop(config, pub, pub_topic, pool)
+                if ret == signal.SIGTERM:
+                    break
     logger.info("GDAL warper stopped.")
 
 
