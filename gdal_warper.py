@@ -116,7 +116,7 @@ def _warper_loop(config, pub, pub_topic, pool):
 
     signal.signal(signal.SIGTERM, _signal_handler)
 
-    latest_message_time = dt.datetime.utcnow()
+    latest_message_time = dt.datetime.now()
     results = []
     queued_images = 0
     with Subscribe(**sub_config) as sub:
@@ -126,7 +126,7 @@ def _warper_loop(config, pub, pub_topic, pool):
                 _publish_message(pub, msg_data, pub_msg)
                 queued_images -= 1
             if restart_timeout:
-                time_since_last_msg = dt.datetime.utcnow() - latest_message_time
+                time_since_last_msg = dt.datetime.now() - latest_message_time
                 time_since_last_msg = time_since_last_msg.total_seconds() / 60.
             if queued_images == 0:
                 if not keep_looping:
@@ -138,7 +138,7 @@ def _warper_loop(config, pub, pub_topic, pool):
             if msg is None:
                 continue
             logger.debug("New message received: %s", str(msg))
-            latest_message_time = dt.datetime.utcnow()
+            latest_message_time = dt.datetime.now()
 
             pool.apply_async(
                 _process_message_worker,
