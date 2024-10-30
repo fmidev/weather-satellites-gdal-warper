@@ -111,7 +111,7 @@ def _warper_loop(config, pub, pub_topic, pool):
 
     def _signal_handler(signum, frame):
         nonlocal keep_looping
-        logger.info("Caught SIGTERM, stop receiving new messages.")
+        logger.info("Caught SIGTERM, stop gdalwarper when queue is empty.")
         keep_looping = False
 
     signal.signal(signal.SIGTERM, _signal_handler)
