@@ -21,8 +21,6 @@ RUN mkdir /opt/conda && \
     micromamba clean -af -y && \
     mv /tmp/gdal_warper.py /opt/conda/bin/ && \
     pip cache purge && \
-    # Remove git with all its dependencies
-    micromamba remove -y git && \
     # Remove pip, leave dependencies intact
     micromamba remove --force -y pip && \
     mkdir /config/ && \

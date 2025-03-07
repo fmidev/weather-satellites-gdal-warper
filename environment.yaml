@@ -3,7 +3,6 @@ channels:
 dependencies:
   - donfig
   - gdal
-  - git
   - netifaces
   - pip
   - pip:
