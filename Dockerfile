@@ -10,7 +10,8 @@ RUN microdnf -y update && \
 COPY gdal_warper.py /tmp
 COPY environment.yaml /tmp
 
-RUN     curl -Ls https://micro.mamba.pm/api/micromamba/linux-64/latest | tar -xvj -C /usr/bin/ --strip-components=1 bin/micromamba
+RUN cd /usr && \
+    curl -Ls https://micro.mamba.pm/api/micromamba/linux-64/latest | tar -xvj bin/micromamba
 RUN mkdir /opt/conda && \
     micromamba shell init -s bash && \
     mv /root/.bashrc /opt/conda/.bashrc && \
