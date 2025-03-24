@@ -12,6 +12,7 @@ COPY environment.yaml /tmp
 
 RUN cd /usr && \
     curl -Ls https://micro.mamba.pm/api/micromamba/linux-64/latest | tar -xvj bin/micromamba
+
 RUN mkdir /opt/conda && \
     micromamba shell init -s bash && \
     mv /root/.bashrc /opt/conda/.bashrc && \
@@ -27,6 +28,7 @@ RUN mkdir /opt/conda && \
     mkdir /config/ && \
     chgrp -R 0 /opt/conda && \
     chmod -R g=u /opt/conda
+
 # Remove unnecessary packages
 RUN source /opt/conda/.bashrc && \
     micromamba activate && \
