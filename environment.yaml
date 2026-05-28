@@ -6,7 +6,7 @@ dependencies:
   - netifaces
   - pip
   - pip:
-    - posttroll==1.14.0
+    - posttroll==1.15.0
   - python=3.13
   - pyyaml
   - pyzmq
