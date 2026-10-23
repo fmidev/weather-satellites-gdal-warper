@@ -4,7 +4,7 @@ dependencies:
   - donfig
   - gdal
   - netifaces
-  - pip
+  - pip>=26.2.2
   - pip:
     - posttroll==1.16.0
   - python=3.14
